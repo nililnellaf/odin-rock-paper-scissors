@@ -5,7 +5,7 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    var humanChoice = prompt("Rock/paper/scissors?").toLowerCase();
+    let humanChoice = prompt("Rock/paper/scissors?").toLowerCase();
     while (isInvalid(humanChoice)) {
         humanChoice = prompt("Invalid choice, rock/paper/scissors?").toLowerCase();
     }
@@ -25,8 +25,8 @@ function capitalizeFirstLetter(s) {
 
 function playGame() {
 
-    var computerScore = 0;
-    var humanScore = 0;
+    let computerScore = 0;
+    let humanScore = 0;
 
     function playRound(humanChoice, computerChoice) {
         if (humanChoice === computerChoice) {
@@ -44,9 +44,9 @@ function playGame() {
         }
     }
 
-    for (var i = 0; i < 5; i++) {
-        var humanChoice = getHumanChoice();
-        var computerChoice = getComputerChoice();
+    for (let i = 0; i < 5; i++) {
+        const humanChoice = getHumanChoice();
+        const computerChoice = getComputerChoice();
         playRound(humanChoice, computerChoice);
     }
     if (computerScore === humanScore) {
