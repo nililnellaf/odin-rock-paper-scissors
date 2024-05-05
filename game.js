@@ -23,43 +23,49 @@ function capitalizeFirstLetter(s) {
     return s;
 }
 
-function playGame() {
 
-    let computerScore = 0;
-    let humanScore = 0;
+let computerScore = 0;
+let humanScore = 0;
 
-    function playRound(humanChoice, computerChoice) {
-        if (humanChoice === computerChoice) {
-            console.log("Draw game! both " + humanChoice)
-        } else if ((humanChoice === "rock" && computerChoice === "paper")
-            || (humanChoice === "paper" && computerChoice === "scissors")
-            || (humanChoice === "rock" && computerChoice === "paper")) {
-            console.log("You lose! " +
-                capitalizeFirstLetter(computerChoice) + " beats " + capitalizeFirstLetter(humanChoice));
-            computerScore++;
-        } else {
-            console.log("You win! " +
-                capitalizeFirstLetter(humanChoice) + " beats " + capitalizeFirstLetter(computerChoice));
-            humanScore++;
-        }
-    }
-
-    for (let i = 0; i < 5; i++) {
-        const humanChoice = getHumanChoice();
-        const computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-    }
-    if (computerScore === humanScore) {
-        console.log(`Draw game! Computer: ${computerScore} Human: ${humanScore}`);
-    } else if (computerScore > humanScore) {
-        console.log(`Computer wins! Computer: ${computerScore} Human: ${humanScore}`);
+function playRound(humanChoice, computerChoice) {
+    let result = document.querySelector(".result");
+    if (humanChoice === computerChoice) {
+        result.textContent = "Draw game! both " + humanChoice;
+    } else if ((humanChoice === "rock" && computerChoice === "paper")
+        || (humanChoice === "paper" && computerChoice === "scissors")
+        || (humanChoice === "rock" && computerChoice === "paper")) {
+        result.textContent = "You lose! " +
+            capitalizeFirstLetter(computerChoice) + " beats " + capitalizeFirstLetter(humanChoice);
+        computerScore++;
     } else {
-        console.log(`Human wins! Computer: ${computerScore} Human: ${humanScore}`);
+        result.textContent = "You win! " +
+            capitalizeFirstLetter(humanChoice) + " beats " + capitalizeFirstLetter(computerChoice);
+        humanScore++;
+    }
+
+    let score = document.querySelector(".score");
+    score.textContent = `Computer: ${computerScore} Human: ${humanScore}`;
+    if (computerScore >= 5) {
+        score.textContent += ". Computer wins!"
+        computerScore = humanScore = 0;
+    } else if (humanScore >= 5) {
+        score.textContent += ". Human wins!"
+        computerScore = humanScore = 0;
     }
 
 }
 
 (function () {
-    "use strict";
-    playGame();
+    const rockButton = document.querySelector(".rock");
+    const paperButton = document.querySelector(".paper");
+    const scissorsButton = document.querySelector(".scissors");
+    rockButton.addEventListener("click", () => {
+        playRound("rock", getComputerChoice());
+    });
+    paperButton.addEventListener("click", () => {
+        playRound("paper", getComputerChoice());
+    });
+    scissorsButton.addEventListener("click", () => {
+        playRound("scissors", getComputerChoice());
+    });
 })();
